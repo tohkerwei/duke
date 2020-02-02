@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     public String description;
     public boolean isDone;
@@ -16,4 +18,5 @@ public class Task {
         String result = "[" + getStatusIcon() + "] " + description;
         return result;
     }
+
 }

@@ -73,11 +73,34 @@ public class Duke {
                         }
                         break;
                     case ("done"):
-                        detailOfTask = inputDetails[1];
-                        Task currentTask = listOfTasks.get(Integer.parseInt(detailOfTask) - 1);
-                        currentTask.isDone = true;
-                        System.out.println("Good job on getting this done!");
-                        System.out.println(currentTask);
+                        try {
+                            if (inputDetails[1] == null) {
+                                throw new NullPointerException("error");
+                            } else {
+                                detailOfTask = inputDetails[1];
+                                Task currentTask = listOfTasks.get(Integer.parseInt(detailOfTask) - 1);
+                                currentTask.isDone = true;
+                                System.out.println("Good job on getting this done!");
+                                System.out.println(currentTask);
+                            }
+                        } catch (NullPointerException error){
+                            throw new DukeException("which task are you done with idiot");
+                        }
+                        break;
+                    case ("delete"):
+                        try {
+                            if (inputDetails[1] == null) {
+                                throw new NullPointerException("error");
+                            } else {
+                                detailOfTask = inputDetails[1];
+                                Task currentTask = listOfTasks.get(Integer.parseInt(detailOfTask) - 1);
+                                System.out.println("alright bye bye task");
+                                System.out.println(currentTask);
+                                listOfTasks.remove(Integer.parseInt(detailOfTask) - 1);
+                            }
+                        } catch (NullPointerException error){
+                            throw new DukeException("which task do you want to delete idiot");
+                        }
                         break;
                     default:
                         throw new DukeException("dont anyhow type la idiot");

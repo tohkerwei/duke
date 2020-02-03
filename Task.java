@@ -1,11 +1,13 @@
-import java.util.ArrayList;
-
 public class Task {
+    public String type;
     public String description;
+    public String dateTime;
     public boolean isDone;
 
-    public Task(String description) {
+    public Task(String type, String description, String dateTime) {
+        this.type = type;
         this.description = description;
+        this.dateTime = dateTime;
         this.isDone = false;
     }
 

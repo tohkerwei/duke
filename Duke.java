@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 
 public class Duke {
 
-
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> listOfTasks = new ArrayList<>();
@@ -99,8 +97,8 @@ public class Duke {
                                 int index = Integer.parseInt(detailOfTask) - 1;
                                 Task currentTask = listOfTasks.get(index);
                                 currentTask.isDone = true;
-                                tasksSaved.set(index, currentTask.type + " | " + currentTask.isDone + " | " +
-                                        currentTask.description + " | " + currentTask.dateTime);
+                                tasksSaved.set(index, currentTask.type + " /" + currentTask.isDone + " /" +
+                                        currentTask.description + "/" + currentTask.dateTime);
                                 System.out.println("Good job on getting this done!");
                                 System.out.println(currentTask);
                             }
@@ -148,11 +146,16 @@ public class Duke {
         String[] inputDetails = new String[3];
         inputDetails[0] = task[0];
         if (input.contains(" ")) {
-            String[] taskDetails = task[1].split("/");
-            inputDetails[1] = taskDetails[0];
-            if (task[1].contains("/")){
+            if (task[1].contains("/by ")){
+                String[] taskDetails = task[1].split("/by ");
+                inputDetails[1] = taskDetails[0];
+                inputDetails[2] = taskDetails[1];
+            } else if (task[1].contains("/at ")) {
+                String[] taskDetails = task[1].split("/at ");
+                inputDetails[1] = taskDetails[0];
                 inputDetails[2] = taskDetails[1];
             } else {
+                inputDetails[1] = task[1];
                 inputDetails[2] = "date/ time not specific";
             }
         }

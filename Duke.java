@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Duke {
 
@@ -17,6 +14,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> listOfTasks = new ArrayList<>();
         ArrayList<String> tasksSaved = new ArrayList<>();
+
+        //File file = new File("/Users/kerwei/Desktop/Jessica/src/main/tasks/task.rtf");
         String fileName = "/Users/kerwei/Desktop/Jessica/src/main/tasks/task.txt";
         //greetings
         System.out.println("Harlo Sir, how may i help you?");
@@ -52,7 +51,7 @@ public class Duke {
                                 detailOfTask = inputDetails[1];
                                 Todo newTask = new Todo(typeOfTask, detailOfTask, "");
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask);
+                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + "  |  ");
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -65,10 +64,10 @@ public class Duke {
                                 throw new NullPointerException("error");
                             } else {
                                 detailOfTask = inputDetails[1];
-                                dateTime = formatDateTimeInput(inputDetails[2]);
+                                dateTime = inputDetails[2];
                                 Deadline newTask = new Deadline(typeOfTask, detailOfTask, dateTime);
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + inputDetails[2]);
+                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + " | " + dateTime);
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -81,10 +80,10 @@ public class Duke {
                                 throw new NullPointerException("error");
                             } else {
                                 detailOfTask = inputDetails[1];
-                                dateTime = formatDateTimeInput(inputDetails[2]);
+                                dateTime = inputDetails[2];
                                 Event newTask = new Event(typeOfTask, detailOfTask, dateTime);
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + inputDetails[2]);
+                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + " | " + dateTime);
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -100,8 +99,8 @@ public class Duke {
                                 int index = Integer.parseInt(detailOfTask) - 1;
                                 Task currentTask = listOfTasks.get(index);
                                 currentTask.isDone = true;
-                                tasksSaved.set(index, currentTask.type + " /" + currentTask.isDone + " /" +
-                                        currentTask.description + "/" + currentTask.dateTime);
+                                tasksSaved.set(index, currentTask.type + " | " + currentTask.isDone + " | " +
+                                        currentTask.description + " | " + currentTask.dateTime);
                                 System.out.println("Good job on getting this done!");
                                 System.out.println(currentTask);
                             }
@@ -149,16 +148,11 @@ public class Duke {
         String[] inputDetails = new String[3];
         inputDetails[0] = task[0];
         if (input.contains(" ")) {
-            if (task[1].contains("/by ")){
-                String[] taskDetails = task[1].split("/by ");
-                inputDetails[1] = taskDetails[0];
-                inputDetails[2] = taskDetails[1];
-            } else if (task[1].contains("/at ")) {
-                String[] taskDetails = task[1].split("/at ");
-                inputDetails[1] = taskDetails[0];
+            String[] taskDetails = task[1].split("/");
+            inputDetails[1] = taskDetails[0];
+            if (task[1].contains("/")){
                 inputDetails[2] = taskDetails[1];
             } else {
-                inputDetails[1] = task[1];
                 inputDetails[2] = "date/ time not specific";
             }
         }
@@ -170,7 +164,7 @@ public class Duke {
         Scanner scanIn = new Scanner(fileInputStream);
         ArrayList<String> tasksSaved = new ArrayList<>();
         while (scanIn.hasNext()) {
-            tasksSaved.add(scanIn.nextLine());
+            tasksSaved.add(scanIn.next());
         }
         return tasksSaved;
     }
@@ -180,8 +174,8 @@ public class Duke {
         Scanner scanIn = new Scanner(fileInputStream);
         ArrayList<Task> listOfTasks = new ArrayList<>();
         while (scanIn.hasNext()){
-            String savedTask = scanIn.nextLine();
-            String[] splitTask = savedTask.split(" /", 0);
+            String savedTask = scanIn.next();
+            String[] splitTask = savedTask.split(" | ", 0);
             String task = splitTask[0];
             switch (task) {
                 case ("todo"):
@@ -190,16 +184,19 @@ public class Duke {
                     listOfTasks.add(todo);
                     break;
                 case ("deadline"):
-                    Deadline deadline = new Deadline(splitTask[0], splitTask[2], formatDateTimeInput(splitTask[3]));
+                    Deadline deadline = new Deadline(splitTask[0], splitTask[2], splitTask[3]);
                     deadline.isDone = Boolean.parseBoolean(splitTask[1]);
                     listOfTasks.add(deadline);
                     break;
                 case ("event"):
-                    Event event = new Event(splitTask[0], splitTask[2], formatDateTimeInput(splitTask[3]));
+                    Event event = new Event(splitTask[0], splitTask[2], splitTask[3]);
                     event.isDone = Boolean.parseBoolean(splitTask[1]);
                     listOfTasks.add(event);
                     break;
             }
+
+        }
+        for (Task t : listOfTasks) {
 
         }
         return listOfTasks;
@@ -214,50 +211,4 @@ public class Duke {
         }
         writer.close();
     }
-
-    public static String formatDateTimeInput(String dateTime) {
-        LocalDate date = LocalDate.parse(dateTime);
-        String month = "";
-        switch(date.getMonthValue()) {
-            case (1):
-                month = "Jan";
-                break;
-            case (2):
-                month = "Feb";
-                break;
-            case (3):
-                month = "Mar";
-                break;
-            case (4):
-                month = "Apr";
-                break;
-            case (5):
-                month = "May";
-                break;
-            case (6):
-                month = "Jun";
-                break;
-            case (7):
-                month = "Jul";
-                break;
-            case (8):
-                month = "Aug";
-                break;
-            case (9):
-                month = "Sep";
-                break;
-            case (10):
-                month = "Oct";
-                break;
-            case (11):
-                month = "Nov";
-                break;
-            case (12):
-                month = "Dec";
-                break;
-        }
-        String formattedDateTime = date.getDayOfMonth() + " " + month + " " + date.getYear();
-        return formattedDateTime;
-    }
-
 }

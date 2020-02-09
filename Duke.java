@@ -12,16 +12,15 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> listOfTasks = new ArrayList<>();
         ArrayList<String> tasksSaved = new ArrayList<>();
-
-        //File file = new File("/Users/kerwei/Desktop/Jessica/src/main/tasks/task.rtf");
         String fileName = "/Users/kerwei/Desktop/Jessica/src/main/tasks/task.txt";
+        Storage storage = new Storage(fileName, tasksSaved);
         //greetings
         System.out.println("Harlo Sir, how may i help you?");
 
         //read in saved tasks
         try {
-            listOfTasks = loadTask(fileName);
-            tasksSaved = copySavedTasks(fileName);
+            listOfTasks = storage.loadTask(fileName);
+            tasksSaved = storage.copySavedTasks(fileName);
         } catch (FileNotFoundException e) {
             System.out.println("no such file la idiot");
         }
@@ -49,7 +48,7 @@ public class Duke {
                                 detailOfTask = inputDetails[1];
                                 Todo newTask = new Todo(typeOfTask, detailOfTask, "");
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + "  |  ");
+                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + " / ");
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -65,7 +64,7 @@ public class Duke {
                                 dateTime = inputDetails[2];
                                 Deadline newTask = new Deadline(typeOfTask, detailOfTask, dateTime);
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + " | " + dateTime);
+                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + dateTime);
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -81,7 +80,7 @@ public class Duke {
                                 dateTime = inputDetails[2];
                                 Event newTask = new Event(typeOfTask, detailOfTask, dateTime);
                                 listOfTasks.add(newTask);
-                                tasksSaved.add(typeOfTask + " | " + newTask.isDone + " | " + detailOfTask + " | " + dateTime);
+                                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + dateTime);
                                 System.out.println("added: " + newTask);
                             }
                         } catch (NullPointerException error){
@@ -134,7 +133,7 @@ public class Duke {
         }
         //bye
         try {
-            saveTask(fileName, tasksSaved);
+            storage.saveTask(fileName, tasksSaved);
         } catch (FileNotFoundException error){
             System.out.println("no file to write to leh");
         }
@@ -162,56 +161,6 @@ public class Duke {
         return inputDetails;
     }
 
-    public static ArrayList<String> copySavedTasks(String file) throws FileNotFoundException{
-        FileInputStream fileInputStream = new FileInputStream(file);
-        Scanner scanIn = new Scanner(fileInputStream);
-        ArrayList<String> tasksSaved = new ArrayList<>();
-        while (scanIn.hasNext()) {
-            tasksSaved.add(scanIn.next());
-        }
-        return tasksSaved;
-    }
 
-    public static ArrayList<Task> loadTask(String file) throws FileNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(file);
-        Scanner scanIn = new Scanner(fileInputStream);
-        ArrayList<Task> listOfTasks = new ArrayList<>();
-        while (scanIn.hasNext()){
-            String savedTask = scanIn.next();
-            String[] splitTask = savedTask.split(" | ", 0);
-            String task = splitTask[0];
-            switch (task) {
-                case ("todo"):
-                    Todo todo = new Todo(splitTask[0], splitTask[2], "");
-                    todo.isDone = Boolean.parseBoolean(splitTask[1]);
-                    listOfTasks.add(todo);
-                    break;
-                case ("deadline"):
-                    Deadline deadline = new Deadline(splitTask[0], splitTask[2], splitTask[3]);
-                    deadline.isDone = Boolean.parseBoolean(splitTask[1]);
-                    listOfTasks.add(deadline);
-                    break;
-                case ("event"):
-                    Event event = new Event(splitTask[0], splitTask[2], splitTask[3]);
-                    event.isDone = Boolean.parseBoolean(splitTask[1]);
-                    listOfTasks.add(event);
-                    break;
-            }
 
-        }
-        for (Task t : listOfTasks) {
-
-        }
-        return listOfTasks;
-
-    }
-
-    public static void saveTask(String file, ArrayList<String> tasksSaved) throws FileNotFoundException {
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        PrintWriter writer = new PrintWriter(fileOutputStream);
-        for (String s : tasksSaved) {
-            writer.println(s);
-        }
-        writer.close();
-    }
 }

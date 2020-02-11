@@ -34,6 +34,7 @@ public class Duke extends Application{
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/resources/images/jessica.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/resources/images/kerwei.png"));
+    boolean isBye = false;
 
     public static String runDuke(String input) {
 
@@ -154,12 +155,17 @@ public class Duke extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String response = getResponse(userInput.getText());
+        String input = userInput.getText();
+        Label userText = new Label(input);
+        Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
+        if (input.equals("bye")) {
+            userInput.setDisable(true);
+        }
         userInput.clear();
     }
 

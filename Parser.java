@@ -93,13 +93,13 @@ public class Parser {
                             Task currentTask = taskList.get(index);
                             currentTask.isDone = true;
                             tasksSaved.set(index, currentTask.type + " /" + currentTask.isDone + " /" +
-                                    currentTask.description + "/" + currentTask.dateTime);
+                                    currentTask.description + " /" + currentTask.dateTime);
                             //System.out.println("Good job on getting this done!");
                             //System.out.println(currentTask);
                             response = ("Good job on getting this done!" + "\n" + currentTask.toString());
                         }
                     } catch (NullPointerException error){
-                        throw new DukeException("which task are you done with idiot");
+                        throw new DukeException("type the correct task number you are done with la idiot");
                     }
                     break;
                 case ("delete"):
@@ -116,7 +116,7 @@ public class Parser {
                             tasksSaved.remove(Integer.parseInt(detailOfTask) - 1);
                         }
                     } catch (NullPointerException error){
-                        throw new DukeException("which task do you want to delete idiot");
+                        throw new DukeException("type the correct task you want to delete la idiot");
                     }
                     break;
                 case ("find"):
@@ -132,7 +132,7 @@ public class Parser {
                     throw new DukeException("dont anyhow type la idiot");
             }
         } catch (DukeException error) {
-            System.out.println(error);
+            response = error.getMessage();
         }
         return response;
     }

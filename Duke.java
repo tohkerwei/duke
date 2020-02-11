@@ -1,3 +1,5 @@
+import com.sun.source.util.TaskListener;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,7 +13,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> listOfTasks = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
+        TaskList taskList = new TaskList(list);
         ArrayList<String> tasksSaved = new ArrayList<>();
         String fileName = "/Users/kerwei/Desktop/Jessica/src/main/tasks/task.txt";
         Storage storage = new Storage(fileName, tasksSaved);
@@ -21,7 +24,8 @@ public class Duke {
 
         //read in saved tasks
         try {
-            listOfTasks = storage.loadTask(fileName);
+            taskList.printTask();
+            taskList = storage.loadTask(fileName);
             tasksSaved = storage.copySavedTasks(fileName);
         } catch (FileNotFoundException e) {
             System.out.println("no such file la idiot");
@@ -30,10 +34,10 @@ public class Duke {
         String input = sc.nextLine();
         UI ui = new UI(input);
         String[] inputDetails = ui.handleInput(input);
-        Parser parser = new Parser(inputDetails, listOfTasks, tasksSaved);
+        Parser parser = new Parser(inputDetails, taskList, tasksSaved);
 
         while (true) {
-            parser.Parse(inputDetails, listOfTasks, tasksSaved);
+            parser.Parse(inputDetails, taskList, tasksSaved);
             input = sc.nextLine();
             inputDetails = ui.handleInput(input);
             if (inputDetails[0].equals("bye")){

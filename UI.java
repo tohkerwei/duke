@@ -6,6 +6,11 @@ public class UI {
         this.input = input;
     }
 
+    /**
+     * Splits the user input and and stores it in an array to be used
+     * @param input
+     * @return the array of task details
+     */
     public static String[] handleInput(String input){
         String[] task = input.split(" ", 2);
         String[] inputDetails = new String[3];

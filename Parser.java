@@ -3,27 +3,23 @@ import java.util.ArrayList;
 public class Parser {
 
     String[] inputDetails;
-    ArrayList<Task> listOfTasks;
+    TaskList taskList;
     ArrayList<String> tasksSaved;
 
-    public Parser(String[] inputDetails, ArrayList<Task> listOfTasks, ArrayList<String> tasksSaved){
+    public Parser(String[] inputDetails, TaskList taskList, ArrayList<String> tasksSaved){
         this.inputDetails = inputDetails;
-        this.listOfTasks = listOfTasks;
+        this.taskList = taskList;
         this.tasksSaved = tasksSaved;
     }
 
-    public static void Parse(String[] inputDetails, ArrayList<Task> listOfTasks, ArrayList<String> tasksSaved) {
+    public static void Parse(String[] inputDetails, TaskList taskList, ArrayList<String> tasksSaved) {
         String typeOfTask = inputDetails[0];
         String detailOfTask = "";
         String dateTime = "";
         try {
             switch (typeOfTask) {
                 case ("list"):
-                    int i = 1;
-                    for (Task t : listOfTasks) {
-                        System.out.println(i + ". " + t);
-                        i++;
-                    }
+                    taskList.printTask();
                     break;
                 case ("todo"):
                     try{
@@ -32,7 +28,7 @@ public class Parser {
                         } else {
                             detailOfTask = inputDetails[1];
                             Todo newTask = new Todo(typeOfTask, detailOfTask, "");
-                            listOfTasks.add(newTask);
+                            taskList.add(newTask);
                             tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + " / ");
                             System.out.println("added: " + newTask);
                         }
@@ -48,7 +44,7 @@ public class Parser {
                             detailOfTask = inputDetails[1];
                             dateTime = inputDetails[2];
                             Deadline newTask = new Deadline(typeOfTask, detailOfTask, dateTime);
-                            listOfTasks.add(newTask);
+                            taskList.add(newTask);
                             tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + dateTime);
                             System.out.println("added: " + newTask);
                         }
@@ -64,7 +60,7 @@ public class Parser {
                             detailOfTask = inputDetails[1];
                             dateTime = inputDetails[2];
                             Event newTask = new Event(typeOfTask, detailOfTask, dateTime);
-                            listOfTasks.add(newTask);
+                            taskList.add(newTask);
                             tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + dateTime);
                             System.out.println("added: " + newTask);
                         }
@@ -79,7 +75,7 @@ public class Parser {
                         } else {
                             detailOfTask = inputDetails[1];
                             int index = Integer.parseInt(detailOfTask) - 1;
-                            Task currentTask = listOfTasks.get(index);
+                            Task currentTask = taskList.get(index);
                             currentTask.isDone = true;
                             tasksSaved.set(index, currentTask.type + " /" + currentTask.isDone + " /" +
                                     currentTask.description + "/" + currentTask.dateTime);
@@ -96,10 +92,10 @@ public class Parser {
                             throw new NullPointerException("error");
                         } else {
                             detailOfTask = inputDetails[1];
-                            Task currentTask = listOfTasks.get(Integer.parseInt(detailOfTask) - 1);
+                            Task currentTask = taskList.get(Integer.parseInt(detailOfTask) - 1);
                             System.out.println("alright bye bye task");
                             System.out.println(currentTask);
-                            listOfTasks.remove(Integer.parseInt(detailOfTask) - 1);
+                            taskList.delete(Integer.parseInt(detailOfTask) - 1);
                             tasksSaved.remove(Integer.parseInt(detailOfTask) - 1);
                         }
                     } catch (NullPointerException error){

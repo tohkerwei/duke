@@ -8,8 +8,12 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.PrintWriter;
 
+/**
+ * Represents a Duke task manager
+ * @author kerwei
+ * @version 1.0
+ */
 public class Duke {
-
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

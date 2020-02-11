@@ -1,3 +1,8 @@
+/**
+ * Represents a user input
+ * @author kerwei
+ * @version 1.0
+ */
 public class UI {
 
     String input;
@@ -8,8 +13,8 @@ public class UI {
 
     /**
      * Splits the user input and and stores it in an array to be used
-     * @param input
-     * @return the array of task details
+     * @param input User input
+     * @return Array of task details
      */
     public static String[] handleInput(String input){
         String[] task = input.split(" ", 2);

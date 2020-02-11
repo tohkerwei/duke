@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/**
+ * Represents a parsed object
+ * @author kerwei
+ * @version 1.0
+ */
 public class Parser {
 
     String[] inputDetails;
@@ -12,6 +17,12 @@ public class Parser {
         this.tasksSaved = tasksSaved;
     }
 
+    /**
+     * Parse the user input
+     * @param inputDetails Array of user input
+     * @param taskList List of tasks
+     * @param tasksSaved List of tasks saved
+     */
     public static void Parse(String[] inputDetails, TaskList taskList, ArrayList<String> tasksSaved) {
         String typeOfTask = inputDetails[0];
         String detailOfTask = "";
@@ -110,6 +121,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the type of task
+     * @param inputDetails Array of user input
+     * @return Type of task
+     */
     public static String getTypeOfTask(String[] inputDetails){
         return inputDetails[0];
     }

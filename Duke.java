@@ -45,12 +45,8 @@ public class Duke extends Application{
         Storage storage = new Storage(fileName, tasksSaved);
         String response;
 
-        //greetings
-        System.out.println("Harlo Sir, how may i help you?");
-
         //read in saved tasks
         try {
-            taskList.printTask();
             taskList = storage.loadTask(fileName);
             tasksSaved = storage.copySavedTasks(fileName);
         } catch (FileNotFoundException e) {
@@ -61,15 +57,7 @@ public class Duke extends Application{
         UI ui = new UI(input);
         String[] inputDetails = ui.handleInput(input);
         Parser parser = new Parser(inputDetails, taskList, tasksSaved);
-
-        while (true) {
-            response = parser.Parse(inputDetails, taskList, tasksSaved);
-            //input = sc.nextLine();
-            inputDetails = ui.handleInput(input);
-            if (inputDetails[0].equals("bye")){
-                break;
-            }
-        }
+        response = parser.Parse(inputDetails, taskList, tasksSaved);
 
         //save task
         try {
@@ -77,7 +65,6 @@ public class Duke extends Application{
         } catch (FileNotFoundException error){
             System.out.println("no file to write to leh");
         }
-        System.out.println("See you again NEVER!!");
 
         return response;
     }
@@ -88,6 +75,7 @@ public class Duke extends Application{
 
     @Override
     public void start(Stage stage) {
+
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -131,6 +119,9 @@ public class Duke extends Application{
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        //Greet User
+        greetUser();
+
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -172,12 +163,20 @@ public class Duke extends Application{
         userInput.clear();
     }
 
+    private void greetUser() {
+        Label greeting = new Label("Hellllooooooooo how may i help you sir? :D");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(greeting, new ImageView(duke))
+        );
+    }
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns response to user input
+     * @param input User input
+     * @return Response
      */
     private String getResponse(String input) {
-        String response = runDuke(input);
-        return response;
+        return runDuke(input);
     }
+
 }

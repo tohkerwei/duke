@@ -31,7 +31,7 @@ public class Parser {
         try {
             switch (typeOfTask) {
                 case ("list"):
-                    taskList.printTask();
+                    response = taskList.toString();
                     break;
                 case ("todo"):
                     try{
@@ -124,6 +124,9 @@ public class Parser {
                     //System.out.println("these are the matching tasks in your list:");
                     response = "these are the matching tasks in your list:";
                     taskList.find(detailOfTask);
+                    break;
+                case ("bye"):
+                    response = "hope to see you again BYE BYEE!!";
                     break;
                 default:
                     throw new DukeException("dont anyhow type la idiot");

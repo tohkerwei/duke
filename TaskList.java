@@ -50,15 +50,15 @@ public class TaskList {
         }
     }
 
-    /**
-     * Prints the task list
-     */
-    public static void printTask(){
+    @Override
+    public String toString (){
+        String result = "";
         int i = 1;
         for (Task t : taskList) {
-            System.out.println(i + "." + t);
+            result += i + "." + t + "\n";
             i++;
         }
+        return result;
     }
 
 }

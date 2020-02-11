@@ -113,6 +113,11 @@ public class Parser {
                         throw new DukeException("which task do you want to delete idiot");
                     }
                     break;
+                case ("find"):
+                    detailOfTask = inputDetails[1];
+                    System.out.println("these are the matching tasks in your list:");
+                    taskList.find(detailOfTask);
+                    break;
                 default:
                     throw new DukeException("dont anyhow type la idiot");
             }

@@ -37,6 +37,19 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public static void find(String keyword) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t.description.contains(keyword)) {
+                list.add(t);
+            }
+        }
+        int i = 1;
+        for (Task t : list) {
+            System.out.println(i+ ". " + t);
+        }
+    }
+
     /**
      * Prints the task list
      */

@@ -34,9 +34,11 @@ public class Duke extends Application{
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/resources/images/jessica.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/resources/images/kerwei.png"));
-    boolean isBye = false;
+    ArrayList<Task> previousTasks = new ArrayList<>();
+    ArrayList<String> previousInstructions = new ArrayList<>();
+    ArrayList<Integer> previousTaskIndex = new ArrayList<>();
 
-    public static String runDuke(String input) {
+    public static String runDuke(String input, ArrayList<Task> previousTasks, ArrayList<String> previousInstructions, ArrayList<Integer> previousTaskIndex) {
 
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
@@ -57,8 +59,8 @@ public class Duke extends Application{
         //String input = sc.nextLine();
         UI ui = new UI(input);
         String[] inputDetails = ui.handleInput(input);
-        Parser parser = new Parser(inputDetails, taskList, tasksSaved);
-        response = parser.Parse(inputDetails, taskList, tasksSaved);
+        Parser parser = new Parser(inputDetails, taskList, tasksSaved, previousTasks, previousInstructions, previousTaskIndex);
+        response = parser.parse(inputDetails, taskList, tasksSaved, previousTasks, previousInstructions, previousTaskIndex);
 
         //save task
         try {
@@ -155,7 +157,8 @@ public class Duke extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        String response = getResponse(userInput.getText());
+        String response = getResponse(userInput.getText(), previousTasks, previousInstructions, previousTaskIndex);
+        assert !response.equals("") : "input cannot be empty idiot";
         String input = userInput.getText();
         Label userText = new Label(input);
         Label dukeText = new Label(response);
@@ -181,8 +184,8 @@ public class Duke extends Application{
      * @param input User input
      * @return Response
      */
-    private String getResponse(String input) {
-        return runDuke(input);
+    private String getResponse(String input, ArrayList<Task> previousTasks, ArrayList<String> previousInstructions, ArrayList<Integer> previousTaskIndex) {
+        return runDuke(input, previousTasks, previousInstructions, previousTaskIndex);
     }
 
 }

@@ -54,6 +54,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the number of task in task list
+     * @return Size of task list
+     */
+    public static int getSize() {
+        return taskList.size();
+    }
+
     @Override
     public String toString (){
         String result = "";

@@ -32,8 +32,8 @@ public class Duke extends Application{
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/resources/images/jessica.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/resources/images/kerwei.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/jessica.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/kerwei.png"));
     ArrayList<Task> previousTasks = new ArrayList<>();
     ArrayList<String> previousInstructions = new ArrayList<>();
     ArrayList<Integer> previousTaskIndex = new ArrayList<>();

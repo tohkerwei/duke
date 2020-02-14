@@ -157,9 +157,9 @@ public class Duke extends Application{
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        String response = getResponse(userInput.getText(), previousTasks, previousInstructions, previousTaskIndex);
-        assert !response.equals("") : "input cannot be empty idiot";
         String input = userInput.getText();
+        assert !input.equals("") : "input cannot be empty idiot";
+        String response = getResponse(userInput.getText(), previousTasks, previousInstructions, previousTaskIndex);
         Label userText = new Label(input);
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(

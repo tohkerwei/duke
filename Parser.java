@@ -34,7 +34,7 @@ public class Parser {
                                 ArrayList<Task> previousTasks, ArrayList<String> previousInstructions, ArrayList<Integer> previousTaskIndex) {
         String typeOfTask = inputDetails[0];
         String dateTime = "";
-        String response = "asd";
+        String response = "";
         try {
             switch (typeOfTask) {
                 case ("list"):

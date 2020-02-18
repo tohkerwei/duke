@@ -17,23 +17,29 @@ public class UI {
      * @return Array of task details
      */
     public static String[] handleInput(String input){
-        String[] task = input.split(" ", 2);
-        String[] inputDetails = new String[3];
-        inputDetails[0] = task[0];
-        if (input.contains(" ")) {
-            if (task[1].contains("/by ")){
-                String[] taskDetails = task[1].split("/by ");
-                inputDetails[1] = taskDetails[0];
-                inputDetails[2] = taskDetails[1];
-            } else if (task[1].contains("/at ")) {
-                String[] taskDetails = task[1].split("/at ");
-                inputDetails[1] = taskDetails[0];
-                inputDetails[2] = taskDetails[1];
+        String[] splitInput = input.split(" ", 2);
+        String taskType;
+        String taskDescription = "";
+        String dateTime = "date or time not specific";
+        taskType = splitInput[0];
+
+        if (taskType.equals("list") || taskType.equals("undo")){
+            //do nothing
+        } else {
+            if (taskType.equals("deadline")) {
+                String[] taskDetails = splitInput[1].split("by ");
+                taskDescription = taskDetails[0];
+                dateTime = taskDetails[1];
+            } else if (taskType.equals("event")) {
+                String[] taskDetails = splitInput[1].split("at ");
+                taskDescription = taskDetails[0];
+                dateTime = taskDetails[1];
             } else {
-                inputDetails[1] = task[1];
-                inputDetails[2] = "date/ time not specific";
+                taskDescription = splitInput[1];
             }
         }
-        return inputDetails;
+
+        String[] taskInfo = {taskType, taskDescription, dateTime};
+        return taskInfo;
     }
 }

@@ -9,8 +9,10 @@ public class Deadline extends Task {
         super(type, description, dateTime);
     }
 
+    Datetime formattedDateTime = new Datetime(dateTime);
+
     @Override
     public String toString(){
-        return "[D]" + super.toString() + " (by: " + dateTime + ")";
+        return "[D]" + super.toString() + " (by: " + formattedDateTime + ")";
     }
 }

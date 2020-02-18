@@ -7,8 +7,8 @@
 public class Task {
     public String type;
     public String description;
-    public String dateTime;
     public boolean isDone;
+    public String dateTime;
 
     public Task(String type, String description, String dateTime) {
         this.type = type;

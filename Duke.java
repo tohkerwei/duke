@@ -44,7 +44,7 @@ public class Duke extends Application{
         ArrayList<Task> list = new ArrayList<>();
         TaskList taskList = new TaskList(list);
         ArrayList<String> tasksSaved = new ArrayList<>();
-        String fileName = "/Users/kerwei/Desktop/Jessica/src/main/tasks/task.txt";
+        String fileName = "/Users/kerwei/Downloads/duke-master/src/main/tasks/task.txt";
         Storage storage = new Storage(fileName, tasksSaved);
         String response;
 
@@ -73,7 +73,6 @@ public class Duke extends Application{
     }
 
     public static void main(String[] args) {
-
     }
 
     @Override

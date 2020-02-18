@@ -100,7 +100,7 @@ public class Parser {
                 String detailOfTask = inputDetails[1];
                 Todo newTask = new Todo(typeOfTask, detailOfTask, "");
                 taskList.add(newTask);
-                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + " / ");
+                tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + " / " + "");
                 previousTasks.add(newTask);
                 previousInstructions.add("todo");
                 response = ("added: " + newTask.toString());
@@ -136,7 +136,7 @@ public class Parser {
                 taskList.add(newTask);
                 tasksSaved.add(typeOfTask + " /" + newTask.isDone + " /" + detailOfTask + "/" + dateTime);
                 previousTasks.add(newTask);
-                previousInstructions.add("deadline");
+                previousInstructions.add("todo");
                 response = ("added: " + newTask.toString());
             }
         } catch (NullPointerException error) {
@@ -332,4 +332,5 @@ public class Parser {
         }
         return response;
     }
+
 }

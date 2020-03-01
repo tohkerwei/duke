@@ -77,9 +77,6 @@ public class Duke extends Application{
         return response;
     }
 
-    public static void main(String[] args) {
-    }
-
     @Override
     public void start(Stage stage) {
 

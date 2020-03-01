@@ -13,7 +13,7 @@
   - [4.6. `delete` Command](#46-delete-command)
   - [4.7. `find` Command](#47-find-command)
   - [4.8. `undo` Command](#48-undo-command)
-  - [4.9. `bye` Command](#48-bye-command)
+  - [4.9. `bye` Command](#49-bye-command)
 
 ## 1. Introduction
 
@@ -45,7 +45,7 @@ Here is a list of the available commands that this program understands:
 
 To use Duke, type in the command that you want Duke to do, follow by details for the commands if required.
 
-The detail formats are specified by the angle brackets. For example, `delete <index>` means that a number should follow behind delete, ie:`delete 2`
+The detail formats are specified by the angle brackets. For example, `delete <index>` means that a number should follow behind delete, ie: `delete 2`
 
 ### 4.1. `todo` Command
 **Description**

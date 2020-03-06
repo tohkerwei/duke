@@ -22,7 +22,7 @@ Duke is a to do list. The 3 main things you can add into Duke are: tasks to be d
 ## 2. Quick Start
 
 1. Ensure that you have Java 11 or above installed on your computer
-2. Download the `duke-0.2.0.jar` file [here](https://github.com/tohkerwei/duke/)
+2. Download the `duke-0.2.0.jar` file [here](https://github.com/tohkerwei/duke/releases)
 3. Go to the directory that the file is saved at
 4. Enter the command `java -jar duke-0.2.0.jar` and the task list window will show up
 
